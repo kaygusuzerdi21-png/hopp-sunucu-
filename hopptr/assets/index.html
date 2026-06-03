@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>hopp — dating app</title>
+<meta name="theme-color" content="#141019" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="hopp" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/png" sizes="512x512" href="pwa/icon-512.png" />
+<link rel="apple-touch-icon" href="pwa/icon-192.png" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; background:
+    radial-gradient(120% 90% at 50% 0%, oklch(0.2 0.03 258), oklch(0.13 0.02 258) 70%); }
+  #stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #scaler { transform-origin: center center; }
+  #root { display: block; }
+</style>
+</head>
+<body style="background-color: rgb(26, 25, 25)">
+  <div id="stage" style="color: rgb(0, 0, 0)">
+    <div id="scaler">
+      <div id="root"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="ios-frame.jsx"></script>
+  <script type="text/babel" src="android-frame.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="config.jsx"></script>
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="ui.jsx"></script>
+  <script type="text/babel" src="extras.jsx"></script>
+  <script type="text/babel" src="geo.jsx"></script>
+  <script type="text/babel" src="notifications.jsx"></script>
+  <script type="text/babel" src="matching.jsx"></script>
+  <script type="text/babel" src="MapCanvas.jsx"></script>
+  <script type="text/babel" src="moments.jsx"></script>
+  <script type="text/babel" src="Auth.jsx"></script>
+  <script type="text/babel" src="Discover.jsx"></script>
+  <script type="text/babel" src="ProfileDetail.jsx"></script>
+  <script type="text/babel" src="Likes.jsx"></script>
+  <script type="text/babel" src="Matches.jsx"></script>
+  <script type="text/babel" src="Profile.jsx"></script>
+  <script type="text/babel" src="Settings.jsx"></script>
+  <script type="text/babel" src="Legal.jsx"></script>
+  <script type="text/babel" src="MomentsUI.jsx"></script>
+  <script type="text/babel" src="Map.jsx"></script>
+  <script type="text/babel" src="Onboarding.jsx"></script>
+  <script type="text/babel" src="App.jsx"></script>
+
+  <script>
+    // scale the 402×874 device to fit the viewport
+    function fit() {
+      const scaler = document.getElementById('scaler');
+      const W = 412, H = 892, m = 24;
+      const s = Math.min((window.innerWidth - m) / W, (window.innerHeight - m) / H, 1.1);
+      scaler.style.transform = 'scale(' + s + ')';
+    }
+    window.addEventListener('resize', fit);
+    fit();
+    // re-fit once device mounts
+    const obs = new MutationObserver(fit);
+    obs.observe(document.getElementById('root'), { childList: true, subtree: true });
+    setTimeout(fit, 400);
+  </script>
+
+  <script>
+    // register the service worker so the PWA installs + works offline
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
+  </script>
+  <template id="__bundler_thumbnail" data-bg-color="#141019">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#141019" />
+      <circle cx="600" cy="360" r="150" fill="none" stroke="#e9b876" stroke-width="10" opacity="0.5" />
+      <path d="M600 300c0 60-70 70-70 130a70 70 0 0 0 140 0c0-28-14-42-21-56-14 21-28 14-28-14 0-25 14-42 14-42-21 0-35-7-35 0z" fill="#e9b876" />
+      <text x="600" y="560" font-family="Georgia, serif" font-size="120" font-weight="600" fill="#e9b876" text-anchor="middle" letter-spacing="-4">hopp</text>
+    </svg>
+  </template>
+
+</body>
+</html>
