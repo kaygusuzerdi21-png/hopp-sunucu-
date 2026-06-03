@@ -1,16 +1,18 @@
 import { WebView } from 'react-native-webview';
 import { StyleSheet, View } from 'react-native';
-import { Asset } from 'expo-asset';
-import { useEffect, useState } from 'react';
+import { useAssets } from 'expo-asset';
 
 export default function App() {
+  const [assets] = useAssets([require('../../assets/index.html')]);
+  
   return (
     <View style={styles.container}>
       <WebView 
-        source={{ uri: 'file:///android_asset/hopp index.html' }}
+        source={assets ? { uri: assets[0].localUri! } : { html: '<h1>Yükleniyor...</h1>' }}
         style={styles.webview}
         allowFileAccess={true}
         allowUniversalAccessFromFileURLs={true}
+        originWhitelist={['*']}
       />
     </View>
   );
