@@ -7,6 +7,7 @@ const path = require('path');
 
 const authRoutes = require('./routes/auth');
 const itemsRoutes = require('./routes/items');
+const profileRoutes = require('./routes/profile')
 const uploadRoutes = require('./routes/upload');
 const notificationsRoutes = require('./routes/notifications');
 const { errorHandler } = require('./middleware/errorHandler');
