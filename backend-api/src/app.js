@@ -34,6 +34,7 @@ app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: new Date().
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/items', itemsRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/match', matchRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/notifications', notificationsRoutes);
 
