@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production
 
+RUN echo "cachebust-20260606"
 COPY . .
 
 RUN mkdir -p uploads
